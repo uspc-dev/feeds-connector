@@ -37,8 +37,32 @@ class FeedsConnector
      **/
     public function process()
     {
-        // !!! stub
-        return new FeedsTemplate\EmptyTemplate();
+        # check the current action
+        $action = filter_input(INPUT_POST, 'action', FILTER_DEFAULT, ['options' => ['default' => 'index']]);
+        $method = $action . 'Action';
+
+        if (!method_exists($this, $method)) {
+            return new FeedsTemplate\NoActionTemplate();
+        }
+
+        return $this->$method();
+    }
+
+
+    /**
+     * Display list of already associated merchants and links to add new one.
+     *
+     * @return HtmlTemplate
+     * @author Mykola Martynov
+     **/
+    private function indexAction()
+    {
+        $store = $this->si;
+
+        # get list of already existing merchants
+        $merchants = $this->merchantsInfo($store->getFeeds());
+
+        return new FeedsTemplate\IndexTemplate($store, $merchants);
     }
 
     /**
