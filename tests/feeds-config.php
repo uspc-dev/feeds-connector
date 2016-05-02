@@ -2,7 +2,7 @@
 
 return array(
     'secure' => false,
-    'apiHost' => 'db-manager.promocodes2015.com',
+    'apiHost' => 'feed-manager.local',
     'apiUrl' => '/feeds/api/1.0',
     'apiKey' => 'APIKEY',
     'secretKey' => 'SECRETKEY',

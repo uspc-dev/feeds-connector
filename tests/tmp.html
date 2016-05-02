@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Store Feeds</title>
+    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container">
+        <div class="page-header">
+            <h1>GoalieMonkey.com <small>feed settings</small></h1>
+        </div>
+
+        <div class="panel panel-primary">
+          
+            <div class="panel-heading">List of merchants whose coupons are used</div>
+
+                      
+            
+              <table class="table table-hover">
+                <thead>
+                  <tr class="bg-info">
+                                        <th>#</th>
+                    <th>Merchant</th>
+                    <th>Coupons</th>
+                    <th>Network</th>
+                    <th>Domain</th>
+                  </tr>
+                </thead>
+                <tbody>
+                                      <tr role="checkbox-row-select">
+                                            <td>1</td>
+                      <td>101Phones</td>
+                      <td>1</td>
+                      <td>Commission Junction</td>
+                      <td>www.101phones.com</td>
+                    </tr>
+                                      <tr role="checkbox-row-select">
+                                            <td>2</td>
+                      <td>10Inbox</td>
+                      <td>0</td>
+                      <td>ShareASale</td>
+                      <td>www.10inbox.com</td>
+                    </tr>
+                                      <tr role="checkbox-row-select">
+                                            <td>3</td>
+                      <td>110 Athletics</td>
+                      <td>0</td>
+                      <td>eBay Enterprise Network</td>
+                      <td>www.110athletics.com</td>
+                    </tr>
+                                      <tr role="checkbox-row-select">
+                                            <td>4</td>
+                      <td>11LuxeBags</td>
+                      <td>1</td>
+                      <td>LinkConnector</td>
+                      <td>www.11luxebags.com</td>
+                    </tr>
+                                      <tr role="checkbox-row-select">
+                                            <td>5</td>
+                      <td>11Main</td>
+                      <td>0</td>
+                      <td>Commission Junction</td>
+                      <td>11main.com</td>
+                    </tr>
+                                  </tbody>
+              </table>
+
+            
+
+            <div class="panel-footer">
+                <form method="post">
+                  <button type="submit" name="action" value="new-source" class="btn btn-primary">Add New Source</button>
+                  <button type="submit" name="action" value="fetch-coupons" class="btn btn-default">Fetch New Coupons</button>
+                </form>
+            </div>
+          
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-1.12.3.min.js" integrity="sha256-aaODHAgvwQW1bFOGXMeX+pC4PZIPsvn2h1sArYOhgXQ=" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>    
+</body>
+</html>
