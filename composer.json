@@ -15,5 +15,8 @@
       "psr-0": {
         "USPC": "src/"
       }
+    },
+    "require-dev": {
+        "uspc/feeds-api": "dev-master"
     }
 }
