@@ -4,7 +4,7 @@ namespace USPC\Feeds\FeedsTemplate;
 
 use USPC\Feeds\StoreInterface;
 
-class IndexTemplate extends BaseTemplate {
+class IndexTemplate extends BaseListTemplate {
 
     /**
      * Store information
@@ -89,48 +89,9 @@ BLOCK_FOOTER;
     private function blockContent()
     {
         $merchants = $this->merchants;
+        $list = $this->makeList($merchants);
 
-        # display default message if no merchants.
-        if (empty($merchants)) {
-            return <<< BLOCK_CONTENT_EMPTY
-  <div class="panel-body">No merchants.</div>
-BLOCK_CONTENT_EMPTY;
-        }
-
-        $tbody = '';
-        $index = 0;
-
-        # create rows for each mearchant
-        foreach ($merchants as $merchant) {
-            $index++;
-            $tbody .= <<< TABLE_ROWS
-        <tr role="checkbox-row-select">
-          <td>$index</td>
-          <td>$merchant[name]</td>
-          <td>$merchant[coupons]</td>
-          <td>$merchant[network]</td>
-          <td>$merchant[domain]</td>
-        </tr>
-TABLE_ROWS;
-        }
-
-        # create table
-        return <<< BLOCK_CONTENT
-  <table class="table table-hover">
-    <thead>
-      <tr class="bg-info">
-        <th>#</th>
-        <th>Merchant</th>
-        <th>Coupons</th>
-        <th>Network</th>
-        <th>Domain</th>
-      </tr>
-    </thead>
-    <tbody>
-        $tbody
-    </tbody>
-  </table>
-BLOCK_CONTENT;
+        return '<div class="panel-body">' . $list . '</div>';
     }
 
 }
