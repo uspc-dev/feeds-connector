@@ -1,0 +1,19 @@
+{
+    "name": "uspc/feeds-connector",
+    "description": "HTML template to use Feeds API to connect external database locally\"",
+    "require": {
+        "php": ">=5.4.0"
+    },
+    "authors": [
+        {
+            "name": "Mykola Martynov",
+            "email": "mykola.martynov@hotmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "autoload": {
+      "psr-0": {
+        "USPC": "src/"
+      }
+    }
+}
