@@ -32,14 +32,13 @@ class FeedsConnector
     /**
      * Processing all actions and return template
      *
-     * @return HtmlTemplate
+     * @return BaseTemplate
      * @author Mykola Martynov
      **/
     public function process()
     {
         # check the current action
-        $action = filter_input(INPUT_POST, 'action', FILTER_DEFAULT, ['options' => ['default' => 'index']]);
-        $method = $action . 'Action';
+        $method = $this->getActionMethod();
 
         if (!method_exists($this, $method)) {
             return new FeedsTemplate\NoActionTemplate();
@@ -48,11 +47,34 @@ class FeedsConnector
         return $this->$method();
     }
 
+    /**
+     * undocumented function
+     *
+     * @return void
+     * @author Mykola Martynov
+     **/
+    private function getActionMethod()
+    {
+        $action = empty($_POST['action']) ? 'index' : $_POST['action'];
+
+        # replace non alphabet characters to spaces and uppercase each word
+        $action = trim(preg_replace('#[^a-z\s]+#', ' ', strtolower($action))) . ' action';
+
+        # remove spaces and capitalize words
+        $words = explode(' ', $action);
+        $first_word = array_shift($words);
+        $words = array_map('ucfirst', $words);
+
+        $method = $first_word . join($words);
+
+        return $method;
+    }
+
 
     /**
      * Display list of already associated merchants and links to add new one.
      *
-     * @return HtmlTemplate
+     * @return BaseTemplate
      * @author Mykola Martynov
      **/
     private function indexAction()
@@ -63,6 +85,23 @@ class FeedsConnector
         $merchants = $this->merchantsInfo($store->getFeeds());
 
         return new FeedsTemplate\IndexTemplate($store, $merchants);
+    }
+
+    /**
+     * Display form to search/add new merchants
+     *
+     * @return BaseTemplate
+     * @author Mykola Martynov
+     **/
+    private function newSourceAction()
+    {
+        $store = $this->si;
+
+        # get list of merchants serached by name/domain
+        // stub
+        $merchants = [];
+
+        return new FeedsTemplate\SearchTemplate($store, $merchants);
     }
 
     /**

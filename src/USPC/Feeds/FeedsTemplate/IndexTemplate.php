@@ -7,32 +7,6 @@ use USPC\Feeds\StoreInterface;
 class IndexTemplate extends BaseListTemplate {
 
     /**
-     * Store information
-     *
-     * @var StoreInterface
-     **/
-    private $store;
-
-    /**
-     * Available merchants
-     *
-     * @var array
-     **/
-    private $merchants;
-
-    /**
-     * save store and merchants for later use
-     * 
-     * @param StoreInterface $store
-     * @param array          $merchants
-     */
-    function __construct(StoreInterface $store, $merchants) {
-        $this->store = $store;
-        $this->merchants = $merchants;
-    }
-
-
-    /**
      * Return HTML template (partial html) for the list of merchants.
      *
      * @return string

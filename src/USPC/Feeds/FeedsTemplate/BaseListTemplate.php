@@ -2,8 +2,36 @@
 
 namespace USPC\Feeds\FeedsTemplate;
 
+use USPC\Feeds\StoreInterface;
+
 abstract class BaseListTemplate extends BaseTemplate {
 
+    /**
+     * Store information
+     *
+     * @var StoreInterface
+     **/
+    protected $store;
+
+    /**
+     * Available merchants
+     *
+     * @var array
+     **/
+    protected $merchants;
+
+    /**
+     * save store and merchants for later use
+     * 
+     * @param StoreInterface $store
+     * @param array          $merchants
+     */
+    function __construct(StoreInterface $store, $merchants) {
+        $this->store = $store;
+        $this->merchants = $merchants;
+    }
+
+    
     protected function makeList($merchants, $with_select = false)
     {
         # display default message if no merchants.
