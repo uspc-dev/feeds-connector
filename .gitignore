@@ -4,3 +4,4 @@ config.php
 tmp.html
 
 /vendor/
+/tests/compilation_cache/
