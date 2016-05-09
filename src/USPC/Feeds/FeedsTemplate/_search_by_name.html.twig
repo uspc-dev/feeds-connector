@@ -1,0 +1,7 @@
+{% set text_name = text_name|default('') %}
+{% include '_search_by.html.twig' with {
+    'label': 'Merchant Name',
+    'name': 'merchant_name',
+    'type': 'name',
+    'value': text_name
+} only %}

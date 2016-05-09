@@ -1,0 +1,7 @@
+{% set text_domain = text_domain|default('') %}
+{% include '_search_by.html.twig' with {
+    'label': 'Merchant Domain',
+    'name': 'merchant_domain',
+    'type': 'domain',
+    'value': text_domain
+} only %}

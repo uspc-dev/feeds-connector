@@ -1,0 +1,52 @@
+<div role="tabpanel">
+
+  <ul class="nav nav-tabs" role="tablist">
+    <li {{ search_type == 'name' ? 'class="active"' : '' }}
+      role="presentation">
+      <a href="#search-by-name"
+         aria-controls="search-by-name"
+         role="tab"
+         data-toggle="tab">Search by Name</a>
+    </li>
+
+    <li {{ search_type == 'domain' ? 'class="active"' : '' }}
+      role="presentation">
+      <a href="#search-by-domain"
+         aria-controls="search-by-domain"
+         role="tab"
+         data-toggle="tab">Search by Domain</a>
+    </li>
+  </ul>
+
+
+  <div class="tab-content">
+    <div class="tab-pane{{ search_type == 'name' ? ' active' : '' }}" role="tabpanel" id="search-by-name">
+      {% include '_search_by_name.html.twig' %}
+    </div>
+
+    <div class="tab-pane{{ search_type == 'domain' ? ' active' : '' }}" role="tabpanel" id="search-by-domain">
+      {% include '_search_by_domain.html.twig' %}
+    </div>
+  </div>
+
+  <form method="post">
+    <div class="panel panel-primary">
+      <div class="panel-heading">Search result of merchants</div>
+
+      {% include '_merchants_list.html.twig' with {'rowSelect': true} %}
+
+      <div class="panel-footer">
+        <button type="submit"
+                name="action" value="add-merchants"
+                class="btn btn-danger">Add Selected Merchants</button>
+      </div>
+    </div>
+
+    {% if field_name %}
+    <input type="hidden" name="{{ field_name }}"
+           value="{{ field_value }}">
+    <input type="hidden" name="search_type" value="{{ searchType }}">
+    {% endif %}
+  </form>
+
+</div>

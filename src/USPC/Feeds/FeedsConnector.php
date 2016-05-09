@@ -8,6 +8,16 @@ namespace USPC\Feeds;
 class FeedsConnector
 {
 
+    const SEARCH_BY_NAME = 'name';
+    const SEARCH_BY_DOMAIN = 'domain';
+
+    /**
+     * Twig 
+     *
+     * @var Twig_Environment
+     **/
+    static private $twig = null;
+
     /**
      * ServiceConnection instance
      *
@@ -23,10 +33,31 @@ class FeedsConnector
     private $store;
 
     
-    function __construct(ServiceConnection $sc, StoreInterface $si)
+    public function __construct(ServiceConnection $sc, StoreInterface $si)
     {
         $this->sc = $sc;
         $this->si = $si;
+
+        $this->loadTwig();
+    }
+
+    /**
+     * Load Twig Environment
+     *
+     * @return void
+     * @author Mykola Martynov
+     **/
+    private function loadTwig()
+    {
+        $twig = self::$twig;
+        if (!is_null($twig)) {
+            return;
+        }
+
+        $loader = new \Twig_Loader_Filesystem(__DIR__ . '/FeedsTemplate');
+        $twig = new \Twig_Environment($loader);
+
+        self::$twig = $twig;
     }
 
     /**
@@ -41,7 +72,7 @@ class FeedsConnector
         $method = $this->getActionMethod();
 
         if (!method_exists($this, $method)) {
-            return new FeedsTemplate\NoActionTemplate();
+            return self::$twig->render('error.html.twig');
         }
 
         return $this->$method();
@@ -84,7 +115,8 @@ class FeedsConnector
         # get list of already existing merchants
         $merchants = $this->merchantsInfo($store->getFeeds());
 
-        return new FeedsTemplate\IndexTemplate($store, $merchants);
+        return self::$twig->render('index.html.twig', ['store' => $store, 'merchants' => $merchants]);
+        // return new FeedsTemplate\IndexTemplate($store, $merchants);
     }
 
     /**
@@ -96,12 +128,25 @@ class FeedsConnector
     private function newSourceAction()
     {
         $store = $this->si;
+        $search_type = $this->getSearchType();
 
-        # get list of merchants serached by name/domain
-        // stub
-        $merchants = [];
+        return self::$twig->render('search-merchants.html.twig', [
+            'store' => $store,
+            'merchants' => [],
+            'search_type' => $search_type,
+        ]);
+    }
 
-        return new FeedsTemplate\SearchTemplate($store, $merchants);
+    /**
+     * Return type of the serach field
+     *
+     * @return string
+     * @author Mykola Martynov
+     **/
+    private function getSearchType($default = self::SEARCH_BY_NAME)
+    {
+        $type = empty($_POST['search_type']) ? $default : $_POST['search_type'];
+        return $type;
     }
 
     /**
@@ -121,15 +166,17 @@ class FeedsConnector
         $merchants = $repo->find($ids);
 
         // sort by name & network
-        usort($merchants, function($a, $b) {
-            $result = strcasecmp($a['name'], $b['name']);
-            if (!$result) {
-              $result = strcasecmp($a['network'], $b['network']);
+        usort(
+            $merchants,
+            function ($a, $b) {
+                $result = strcasecmp($a['name'], $b['name']);
+                if (!$result) {
+                    $result = strcasecmp($a['network'], $b['network']);
+                }
+                return $result;
             }
-            return $result;
-        });
+        );
 
         return $merchants;
     }
-
 }

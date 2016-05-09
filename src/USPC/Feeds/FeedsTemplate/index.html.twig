@@ -1,0 +1,39 @@
+<div class="panel panel-primary">
+  <div class="panel-heading">List of merchants whose coupons are used</div>
+
+  <div class="panel-body">
+    {% if merchants|length == 0 %}
+      No merchants.
+      {% else %}
+      <table class="table table-hover">
+        <thead>
+          <tr class="bg-info">
+            <th>#</th>
+            <th>Merchant</th>
+            <th>Coupons</th>
+            <th>Network</th>
+            <th>Domain</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for merchant in merchants %}
+            <tr>
+              <td>{{ loop.index }}</td>
+              <td>{{ merchant.name }}</td>
+              <td>{{ merchant.coupons }}</td>
+              <td>{{ merchant.network }}</td>
+              <td>{{ merchant.domain }}</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>            
+    {% endif %}
+  </div>
+
+  <div class="panel-footer">
+    <form method="post">
+      <button type="submit" name="action" value="new-source" class="btn btn-primary">Add New Source</button>
+      <button type="submit" name="action" value="fetch-coupons" class="btn btn-default">Fetch New Coupons</button>
+    </form>
+  </div>
+</div>

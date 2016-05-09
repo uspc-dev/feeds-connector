@@ -1,0 +1,20 @@
+<form method="post">
+
+  <div class="form-group">
+    <label for="merchantDomain">{{ label }}</label>
+    <input type="text" class="form-control" id="merchantDomain"
+           placeholder="{{ placeholder|default('') }}"
+           name="{{ name }}"
+           value="{{ value }}">
+  </div>
+
+  <button type="submit" 
+          name="action" value="search-by-{{ type }}"
+          class="btn btn-primary">Search</button>
+          
+  <button type="submit"
+          name="action" value=""
+          class="btn btn-warning">Back to Feed Settings</button>
+
+  <input type="hidden" name="search_type" value="{{ type }}">
+</form>
