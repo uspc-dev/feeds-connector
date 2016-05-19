@@ -146,12 +146,35 @@ class FeedsConnector
      **/
     private function searchByNameAction()
     {
+        return $this->searchBy('name', $this->getSearchName());
+    }
+
+    /**
+     * Display form to add new sources with search result.
+     *
+     * @return BaseTemplate
+     * @author Mykola Martynov
+     **/
+    private function searchByDomainAction()
+    {
+        return $this->searchBy('domain', $this->getDomainName());
+    }
+
+    /**
+     * Return template for the search result form.
+     *
+     * @param  string  $method_type
+     * @param  string  $data
+     * @return BaseTemplate
+     * @author Mykola Martynov
+     **/
+    private function searchBy($method_type, $data)
+    {
         $store = $this->si;
 
         $search_type = $this->getSearchType();
-        $name = $this->getSearchName();
 
-        $merchants = $this->findMerchantsBy('name', $name);
+        $merchants = $this->findMerchantsBy($method_type, $data);
 
         return self::$twig->render('search-merchants.html.twig', [
             'store' => $store,
@@ -165,7 +188,7 @@ class FeedsConnector
     /**
      * Return merchants founded by the specified search method.
      *
-     * @param  string  $method
+     * @param  string  $method_type
      * @param  string  $data
      * @return array
      * @author Mykola Martynov
@@ -192,7 +215,7 @@ class FeedsConnector
     }
 
     /**
-     * Return the name of merchant entered by the user.
+     * Return the name for merchant searched by the user.
      *
      * @return string
      * @author Mykola Martynov
@@ -201,6 +224,18 @@ class FeedsConnector
     {
         $name = empty($_POST['merchant_name']) ? '' : $_POST['merchant_name'];
         return $name;
+    }
+
+    /**
+     * Return the domain for merchant searched by the user.
+     *
+     * @return string
+     * @author Mykola Martynov
+     **/
+    private function getDomainName()
+    {
+        $domain = empty($_POST['merchant_domain']) ? '' : $_POST['merchant_domain'];
+        return $domain;
     }
 
     /**
