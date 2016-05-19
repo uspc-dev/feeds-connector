@@ -139,6 +139,71 @@ class FeedsConnector
     }
 
     /**
+     * Display form to add new sources with search result.
+     *
+     * @return BaseTemplate
+     * @author Mykola Martynov
+     **/
+    private function searchByNameAction()
+    {
+        $store = $this->si;
+
+        $search_type = $this->getSearchType();
+        $name = $this->getSearchName();
+
+        $merchants = $this->findMerchantsBy('name', $name);
+
+        return self::$twig->render('search-merchants.html.twig', [
+            'store' => $store,
+            'merchants' => $merchants,
+            'search_type' => $search_type,
+            'msgMerchantsEmpty' => 'No merchants found.',
+            'rowSelect' => true,
+        ]);
+    }
+
+    /**
+     * Return merchants founded by the specified search method.
+     *
+     * @param  string  $method
+     * @param  string  $data
+     * @return array
+     * @author Mykola Martynov
+     **/
+    private function findMerchantsBy($method_type, $data)
+    {
+        $repository = new MerchantRepository();
+        $repository->setConnection($this->sc);
+
+        $method = 'findBy' . ucfirst(strtolower($method_type));
+        $merchants = call_user_method($method, $repository, $data);
+
+        # sort by name/network
+        usort($merchants,
+          function($a, $b) {
+            $result = strcasecmp($a['name'], $b['name']);
+            if (!$result) {
+              $result = strcasecmp($a['network'], $b['network']);
+            }
+            return $result;
+        });
+
+        return $merchants;
+    }
+
+    /**
+     * Return the name of merchant entered by the user.
+     *
+     * @return string
+     * @author Mykola Martynov
+     **/
+    private function getSearchName()
+    {
+        $name = empty($_POST['merchant_name']) ? '' : $_POST['merchant_name'];
+        return $name;
+    }
+
+    /**
      * Return type of the serach field
      *
      * @return string

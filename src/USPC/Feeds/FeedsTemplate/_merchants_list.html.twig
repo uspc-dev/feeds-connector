@@ -13,7 +13,7 @@
     </tr>
   </thead>
   <tbody>
-    {% for merchant in feedMerchants %}
+    {% for merchant in merchants %}
       <tr role="checkbox-row-select">
         {% if rowSelect %}
           <td><input  type="checkbox"
@@ -21,7 +21,7 @@
                       name="merchants_id[]"
                       value="{{ merchant.id }}"></td>
         {% endif %}
-       <td>{{ index + 1 }}</td>
+       <td>{{ loop_index }}</td>
        <td>{{ merchant.name }}</td>
        <td>{{ merchant.coupons }}</td>
        <td>{{ merchant.network }}</td>
