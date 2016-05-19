@@ -1,0 +1,37 @@
+{% if merchants|length > 0 %}
+  <table class="table table-hover">
+    <thead>
+      <tr class="bg-info">
+      {% if rowSelect %}
+        <th><input type="checkbox" role="checkbox-rows"></th>
+      {% endif %}
+      <th>#</th>
+      <th>Merchant</th>
+      <th>Coupons</th>
+      <th>Network</th>
+      <th>Domain</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for merchant in feedMerchants %}
+      <tr role="checkbox-row-select">
+        {% if rowSelect %}
+          <td><input  type="checkbox"
+                      role="checkbox-one-row"
+                      name="merchants_id[]"
+                      value="{{ merchant.id }}"></td>
+        {% endif %}
+       <td>{{ index + 1 }}</td>
+       <td>{{ merchant.name }}</td>
+       <td>{{ merchant.coupons }}</td>
+       <td>{{ merchant.network }}</td>
+       <td>{{ merchant.domain }}</td>
+     </tr>
+    {% endfor %}
+  </tbody>
+  </table>
+{% elseif msgMerchantsEmpty %}
+  <div class="panel-body">
+    {{ msgMerchantsEmpty }}
+  </div>
+{% endif %}

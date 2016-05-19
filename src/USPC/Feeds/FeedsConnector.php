@@ -134,6 +134,7 @@ class FeedsConnector
             'store' => $store,
             'merchants' => [],
             'search_type' => $search_type,
+            'msgMerchantsEmpty' => 'No merchants found.',
         ]);
     }
 

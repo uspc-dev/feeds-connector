@@ -1,3 +1,7 @@
+{% set merchants = merchants|default([]) %}
+{% set rowSelect = rowSelect|default(false) %}
+{% set msgMerchantsEmpty = msgMerchantsEmpty|default(false) %}
+
 <div role="tabpanel">
 
   <ul class="nav nav-tabs" role="tablist">
