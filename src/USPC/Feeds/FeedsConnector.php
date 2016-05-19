@@ -111,7 +111,7 @@ class FeedsConnector
     private function indexAction()
     {
         # get list of already existing merchants
-        $merchants = $this->merchantsInfo($store->getFeeds());
+        $merchants = $this->merchantsInfo($this->si->getFeeds());
 
         return self::$twig->render('index.html.twig', ['merchants' => $merchants]);
     }

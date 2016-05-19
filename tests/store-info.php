@@ -66,7 +66,7 @@ class StoreInfo implements StoreInterface {
         foreach ($merchants as $merchant_id) {
             $index = array_search($merchant_id, $this->feeds);
             if ($index !== false) {
-                unset($this->feeds[$merchant_id]);
+                unset($this->feeds[$index]);
             }
         }
     }
