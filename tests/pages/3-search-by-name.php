@@ -3,6 +3,7 @@
 require_once __DIR__ . '/../setup.php';
 
 $_POST['action'] = 'search-by-name';
+$_POST['search_type'] = 'name';
 $_POST['merchant_name'] = 'target';
 
 $html = $fc->process();

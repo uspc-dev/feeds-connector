@@ -2,7 +2,7 @@
 
 require_once __DIR__ . '/../setup.php';
 
-$_POST['action'] = 'search-by-domain';
+$_POST['action'] = 'add_merchants';
 $_POST['search_type'] = 'domain';
 $_POST['merchant_domain'] = 'target.com';
 

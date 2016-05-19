@@ -182,6 +182,7 @@ class FeedsConnector
             'search_type' => $search_type,
             'msgMerchantsEmpty' => 'No merchants found.',
             'rowSelect' => true,
+            'search_text' => $data,
         ]);
     }
 
