@@ -2,9 +2,13 @@
 
 require_once __DIR__ . '/../setup.php';
 
-$_POST['action'] = 'add_merchants';
-$_POST['search_type'] = 'domain';
-$_POST['merchant_domain'] = 'target.com';
+$_POST['action'] = 'add-merchants';
+$_POST['merchants_id'] = [
+    12982,  // Target | Google Affiliate Network
+    7538,   // Target | Impact Radius
+    6349,   // Target | Impact Radius
+];
+
 
 $html = $fc->process();
 

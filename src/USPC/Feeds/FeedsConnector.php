@@ -120,6 +120,20 @@ class FeedsConnector
     }
 
     /**
+     * Add selected merchantes to the store and display index page.
+     *
+     * @return BaseTemplate
+     * @author Mykola Martynov
+     **/
+    private function addMerchantsAction()
+    {
+        $merchants = $this->getMerchantsId();
+        $this->si->addFeeds($merchants);
+
+        return $this->indexAction();
+    }
+
+    /**
      * Display form to search/add new merchants
      *
      * @return BaseTemplate
@@ -249,6 +263,18 @@ class FeedsConnector
     {
         $type = empty($_POST['search_type']) ? $default : $_POST['search_type'];
         return $type;
+    }
+
+    /**
+     * Return list of merchants id, selected by the user in search result form.
+     *
+     * @return array
+     * @author Mykola Martynov
+     **/
+    private function getMerchantsId()
+    {
+        $merchants_id = empty($_POST['merchants_id']) ? [] : $_POST['merchants_id'];
+        return !is_array($merchants_id) ? [] : $merchants_id;
     }
 
     /**

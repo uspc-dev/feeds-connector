@@ -10,6 +10,13 @@ use USPC\Feeds\StoreInterface;
 class StoreInfo implements StoreInterface {
 
     /**
+     * Id's for the store feeds.
+     *
+     * @var array of int
+     **/
+    private $feeds = [19, 20, 21, 22, 23];
+
+    /**
      * Return name for the store
      *
      * @return string
@@ -28,7 +35,7 @@ class StoreInfo implements StoreInterface {
      **/
     public function getFeeds()
     {
-        return [19, 20, 21, 22, 23];
+        return $this->feeds;
     }
 
     /**
@@ -40,7 +47,11 @@ class StoreInfo implements StoreInterface {
      **/
     public function addFeeds($merchants)
     {
-        // !!! stub
+        foreach ($merchants as $merchant_id) {
+            if (!in_array($merchant_id, $this->feeds)) {
+                $this->feeds[] = $merchant_id;
+            }
+        }
     }
 
     /**
@@ -52,7 +63,12 @@ class StoreInfo implements StoreInterface {
      **/
     public function removeFeeds($merchants)
     {
-        // !!! stub
+        foreach ($merchants as $merchant_id) {
+            $index = array_search($merchant_id, $this->feeds);
+            if ($index !== false) {
+                unset($this->feeds[$merchant_id]);
+            }
+        }
     }
 
 }
