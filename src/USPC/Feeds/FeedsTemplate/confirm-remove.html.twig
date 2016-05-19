@@ -1,0 +1,17 @@
+<form method="post">
+    <div class="jumbotron alert alert-danger">
+        <h1>Confirmation Removal!</h1>
+        <p>Are you sure to remove the following merchants from the feeds?</p>
+        <ul>
+            {% for merchant in merchants %}
+                <li>{{ merchant.name }}</li>
+                <input type="hidden" name="merchants_id[]" value="{{ merchant.id }}">
+            {% endfor %}
+        </ul>
+
+        <div class="row text-right">
+            <button type="submit" class="btn btn-danger" name="action" value="remove-merchants">Remove</button>
+            <button type="submit" class="btn btn-warning" name="action">Back to Feed Settings</button>
+        </div>
+    </div>
+</form>

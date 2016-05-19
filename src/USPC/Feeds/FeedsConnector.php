@@ -110,13 +110,10 @@ class FeedsConnector
      **/
     private function indexAction()
     {
-        $store = $this->si;
-
         # get list of already existing merchants
         $merchants = $this->merchantsInfo($store->getFeeds());
 
-        return self::$twig->render('index.html.twig', ['store' => $store, 'merchants' => $merchants]);
-        // return new FeedsTemplate\IndexTemplate($store, $merchants);
+        return self::$twig->render('index.html.twig', ['merchants' => $merchants]);
     }
 
     /**
@@ -134,6 +131,44 @@ class FeedsConnector
     }
 
     /**
+     * Remove selected merchants from the store after confirmation and display index page.
+     *
+     * @return BaseTemplate
+     * @author Mykola Martynov
+     **/
+    private function removeMerchantsAction()
+    {
+        $merchants_id = $this->getMerchantsId();
+        $confirmed = $this->getConfirmStatus();
+
+        # remove feeds
+        if (!empty($merchants_id) && $confirmed) {
+            $this->si->removeFeeds($merchants_id);
+        }
+
+        # display confirmation page
+        elseif (!empty($merchants_id)) {
+            return $this->confirmRemoveAction();
+        }
+
+        return $this->indexAction();
+    }
+
+    /**
+     * Display confirmation page for deleting selected merchants
+     *
+     * @return BaseTemplate
+     * @author Mykola Martynov
+     **/
+    private function confirmRemoveAction()
+    {
+        $merchants = $merchants = $this->merchantsInfo($this->getMerchantsId());
+        return self::$twig->render('confirm-remove.html.twig', [
+            'merchants' => $merchants,
+        ]);
+    }
+
+    /**
      * Display form to search/add new merchants
      *
      * @return BaseTemplate
@@ -141,11 +176,9 @@ class FeedsConnector
      **/
     private function newSourceAction()
     {
-        $store = $this->si;
         $search_type = $this->getSearchType();
 
         return self::$twig->render('search-merchants.html.twig', [
-            'store' => $store,
             'merchants' => [],
             'search_type' => $search_type,
             'msgMerchantsEmpty' => 'No merchants found.',
@@ -184,14 +217,10 @@ class FeedsConnector
      **/
     private function searchBy($method_type, $data)
     {
-        $store = $this->si;
-
         $search_type = $this->getSearchType();
-
         $merchants = $this->findMerchantsBy($method_type, $data);
 
         return self::$twig->render('search-merchants.html.twig', [
-            'store' => $store,
             'merchants' => $merchants,
             'search_type' => $search_type,
             'msgMerchantsEmpty' => 'No merchants found.',
@@ -275,6 +304,17 @@ class FeedsConnector
     {
         $merchants_id = empty($_POST['merchants_id']) ? [] : $_POST['merchants_id'];
         return !is_array($merchants_id) ? [] : $merchants_id;
+    }
+
+    /**
+     * Return confirm status.
+     *
+     * @return boolean
+     * @author Mykola Martynov
+     **/
+    private function getConfirmStatus()
+    {
+        return !empty($_POST['confirmed']);
     }
 
     /**
