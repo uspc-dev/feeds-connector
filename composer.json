@@ -1,6 +1,6 @@
 {
     "name": "uspc/feeds-connector",
-    "description": "HTML template to use Feeds API to connect external database locally\"",
+    "description": "HTML template to use Feeds API to connect external database locally",
     "require": {
         "php": ">=5.4.0",
         "twig/twig": "~1.0"
