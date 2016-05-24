@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "fac472824f088e81005ec7d7235dcaaf",
+    "hash": "9eae05e683d606a236bdebb48c71a7ff",
     "content-hash": "c45600406f19f8635c096f9ff04b1994",
     "packages": [
         {
@@ -13,12 +13,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/twigphp/Twig.git",
-                "reference": "f167cc0a65ab0a2a53558c9385b4a324c1a36b02"
+                "reference": "3dfda00462b190f4b9666a7cb9ac9f4ba30aee24"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/twigphp/Twig/zipball/f167cc0a65ab0a2a53558c9385b4a324c1a36b02",
-                "reference": "f167cc0a65ab0a2a53558c9385b4a324c1a36b02",
+                "url": "https://api.github.com/repos/twigphp/Twig/zipball/3dfda00462b190f4b9666a7cb9ac9f4ba30aee24",
+                "reference": "3dfda00462b190f4b9666a7cb9ac9f4ba30aee24",
                 "shasum": ""
             },
             "require": {
@@ -66,7 +66,7 @@
             "keywords": [
                 "templating"
             ],
-            "time": "2016-04-24 13:54:56"
+            "time": "2016-05-20 06:13:46"
         }
     ],
     "packages-dev": [
@@ -75,13 +75,13 @@
             "version": "dev-master",
             "source": {
                 "type": "git",
-                "url": "https://github.com/mykola-uspc/feeds-api.git",
-                "reference": "16fb8642b50b9e917eca3f7201744f4612510da3"
+                "url": "https://github.com/uspc-dev/feeds-api.git",
+                "reference": "70dd5c683d97f3707504219dfb2e237385813830"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/mykola-uspc/feeds-api/zipball/16fb8642b50b9e917eca3f7201744f4612510da3",
-                "reference": "16fb8642b50b9e917eca3f7201744f4612510da3",
+                "url": "https://api.github.com/repos/uspc-dev/feeds-api/zipball/70dd5c683d97f3707504219dfb2e237385813830",
+                "reference": "70dd5c683d97f3707504219dfb2e237385813830",
                 "shasum": ""
             },
             "require": {
@@ -100,7 +100,8 @@
                     "email": "mykola.martynov@hotmail.com"
                 }
             ],
-            "time": "2016-04-26 15:14:51"
+            "description": "The package is used to get access for remote feeds",
+            "time": "2016-05-24 16:07:39"
         }
     ],
     "aliases": [],
